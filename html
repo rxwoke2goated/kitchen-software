@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Kitchen Designer</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <h1>Kitchen Designer</h1>
+  
+  <div id="controls">
+    <div>
+      <label>Cabinet Texture:</label>
+      <input type="file" id="cabinet-input" accept="image/*">
+    </div>
+    <div>
+      <label>Countertop Texture:</label>
+      <input type="file" id="counter-input" accept="image/*">
+    </div>
+    <div>
+      <label>Flooring Texture:</label>
+      <input type="file" id="floor-input" accept="image/*">
+    </div>
+  </div>
+
+  <canvas id="kitchen-canvas" width="800" height="600"></canvas>
+
+  <script src="script.js"></script>
+</body>
+</html>
