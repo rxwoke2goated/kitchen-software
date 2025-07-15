@@ -1,0 +1,55 @@
+const canvas = document.getElementById('kitchen-canvas');
+const ctx = canvas.getContext('2d');
+
+// Define zones: basic layout
+const zones = {
+  cabinets: { x: 50, y: 100, w: 300, h: 200, img: null },
+  countertop: { x: 300, y: 250, w: 450, h: 80, img: null },
+  flooring: { x: 0, y: 500, w: 800, h: 100, img: null }
+};
+
+// Draw default background
+function drawBase() {
+  ctx.fillStyle = '#eee';
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+  // draw placeholder areas
+  for (let key in zones) {
+    const z = zones[key];
+    ctx.fillStyle = '#ccc';
+    ctx.fillRect(z.x, z.y, z.w, z.h);
+  }
+}
+
+// Draw uploaded textures
+function updateCanvas() {
+  drawBase();
+
+  for (let key in zones) {
+    let z = zones[key];
+    if (z.img) {
+      ctx.drawImage(z.img, z.x, z.y, z.w, z.h);
+    }
+  }
+}
+
+// Load and apply texture
+function handleFile(event, zoneKey) {
+  const file = event.target.files[0];
+  if (!file) return;
+
+  const img = new Image();
+  img.onload = () => {
+    zones[zoneKey].img = img;
+    updateCanvas();
+  };
+  img.src = URL.createObjectURL(file);
+}
+
+// Connect input fields
+document.getElementById('cabinet-input').addEventListener('change', e => handleFile(e, 'cabinets'));
+document.getElementById('counter-input').addEventListener('change', e => handleFile(e, 'countertop'));
+document.getElementById('floor-input').addEventListener('change', e => handleFile(e, 'flooring'));
+
+// Initial render
+drawBase();
